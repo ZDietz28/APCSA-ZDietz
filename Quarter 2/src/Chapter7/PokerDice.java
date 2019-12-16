@@ -1,14 +1,30 @@
 package Chapter7;
 import java.util.Scanner;
+import java.util.Random;
 public class PokerDice {
 
 	public static void main(String[] args) {
-		// Fill in the body
+		int[] dice = new int[5];
+		Scanner input = new Scanner(System.in);
+		do {
+			rollDice(dice);
+			while(true) {
+				
+				System.out.println("Your current dice: " + diceToString(dice));
+				
+				promptForReroll(dice, input);
+				break;
+			}
+			rollDice(dice);
+			System.out.println("Your current dice: " + diceToString(dice));
+		} while(promptForPlayAgain(input));
 	}
 	
 	// Given an array of integers as input, sets every element of the array to zero.
 	private static void resetDice(int[] dice) {
-		// Fill in the body
+		for(int i = 0; i < dice.length; i++) {
+			dice[i] = 0;
+		}
 	}
 	
 	// Given an array of integers as input, checks each element of the array.  If the value
@@ -16,6 +32,12 @@ public class PokerDice {
 	// it.  Otherwise, leave it as is and move to the next element.
 	private static void rollDice(int[] dice) {
 		// Fill in the body
+		for(int i = 0; i < dice.length; i++) {
+			if(i == 0) {
+				Random generator = new Random();
+				dice[i] = generator.nextInt(6) + 1;
+			}
+		}
 	}
 	
 	// Given an array of integers as input, create a formatted String that contains the
@@ -23,7 +45,11 @@ public class PokerDice {
 	// array contains the values [0, 3, 7, 5, 2] then the String returned by this method
 	// should be "0 3 7 5 2".
 	private static String diceToString(int[] dice) {
-		return null;
+		String holder = "";
+		for(int i = 0; i < dice.length; i++) {
+			holder += dice[i] + " ";
+		}
+		return holder;
 		// Fill in the body
 		
 	}
@@ -35,7 +61,18 @@ public class PokerDice {
 	// user enters a -1, end the loop and return to the calling program.  If the user enters
 	// any other invalid index, provide an error message and ask again for a valid index.
 	private static void promptForReroll(int[] dice, Scanner inScanner) {
-		// Fill in the body
+		do {
+			System.out.println("Select a die to re-roll (-1 to keep remaining dice): ");
+			int reroll = inScanner.nextInt();
+			if(reroll > 0 && reroll < 7) {
+				dice[reroll] = 0;
+				break;
+			} else if (reroll == -1) {
+				break;
+			} else {
+				System.out.println("Please enter a number between 1 and 6 or -1 to not reroll any");
+			}
+		} while(inScanner.hasNextInt());
 	}
 	
 	// Given a Scanner as input, prompt the user to play again.  The only valid entries
@@ -45,7 +82,20 @@ public class PokerDice {
 	// other than Y or N (including an empty line), an error message should be displayed
 	// and the user should be prompted again until a valid response is received.
 	private static boolean promptForPlayAgain(Scanner inScanner) {
-		return false;
+		do {
+			System.out.println("Would you like to play again? (\"Y\" or \"N\")");
+			String answer = inScanner.next();
+			if(answer.equals("Y") || answer.equals("y")) {
+				return true;
+			} else if (answer.equals("N") || answer.equals("n")) {
+				return false;
+			} else {
+				System.out.println("Please enter \"Y\" or \"N\"");
+			}
+			
+		}
+		while(true);
+		
 		// Fill in body
 	}
 	

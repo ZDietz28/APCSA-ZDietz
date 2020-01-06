@@ -11,7 +11,7 @@ public class PokerDice {
 			while(true) {
 				
 				System.out.println("Your current dice: " + diceToString(dice));
-				
+				System.out.println("Select a die to re-roll (-1 to keep remaining dice): ");
 				promptForReroll(dice, input);
 				break;
 			}
@@ -33,7 +33,7 @@ public class PokerDice {
 	private static void rollDice(int[] dice) {
 		// Fill in the body
 		for(int i = 0; i < dice.length; i++) {
-			if(i == 0) {
+			if(dice[i] == 0) {
 				Random generator = new Random();
 				dice[i] = generator.nextInt(6) + 1;
 			}
@@ -62,16 +62,22 @@ public class PokerDice {
 	// any other invalid index, provide an error message and ask again for a valid index.
 	private static void promptForReroll(int[] dice, Scanner inScanner) {
 		do {
-			System.out.println("Select a die to re-roll (-1 to keep remaining dice): ");
+			//boolean flag = true;
+			//while(flag) {
 			int reroll = inScanner.nextInt();
-			if(reroll > 0 && reroll < 7) {
-				dice[reroll] = 0;
-				break;
+			if(reroll > 0 && reroll < 6) {
+				dice[reroll-1] = 0;
+				
 			} else if (reroll == -1) {
+				//flag = true;
 				break;
 			} else {
-				System.out.println("Please enter a number between 1 and 6 or -1 to not reroll any");
+				System.out.println("Please enter a number between 1 and 5 or -1 to not reroll any");
 			}
+			//}
+			//break;
+			System.out.println("Select a die to re-roll (-1 to keep remaining dice): ");
+			System.out.println("Your current dice: " + diceToString(dice));
 		} while(inScanner.hasNextInt());
 	}
 	

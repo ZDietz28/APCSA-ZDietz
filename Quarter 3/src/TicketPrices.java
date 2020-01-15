@@ -48,35 +48,62 @@ public class TicketPrices {
 				}
 			}
 		}
-		for(int i = 0; i < seats.length; i++) {
-			System.out.print("Row " + (i+1) + ": ");
-			for(int j = 0; j < seats.length+1; j++) {
-				System.out.print(seats[i][j] + "  ");
-			}
-		
-			System.out.println();
-		}
+		PrintSeats(seats);
 		System.out.println();
 		System.out.print("How many tickets you buyin': ");
 		tickets = input.nextInt();
+		int price = 0;
 		for(int i = 0; i < tickets; i++) {
-			System.out.println("Enter the row and column for your seat choice: ");
-			System.out.print("Row: ");
-			row = input.nextInt();
-			System.out.print("Col: ");
-			col = input.nextInt();
-			if(CheckSeat(row, col, seats) == 0) {
-				
+			int numb = 0;
+			boolean flag = false;
+			while(!flag) {
+				System.out.println("Enter the row and column for your seat choice: ");
+				System.out.print("Row: ");
+				row = input.nextInt();
+				System.out.print("Col: ");
+				col = input.nextInt();
+				if(!CheckSeat(row,col,seats)) {
+					System.out.println("That seat is not available");
+				} else {
+					System.out.println("Seat got");
+					price += PriceSeat(row,col,seats);
+					flag = true;
+					
+				}
 			}
 		}
+		PrintSeats(seats);
+		System.out.println("Number Tickets Sold: " + tickets);
+		System.out.print("Amount Due: $");
+		System.out.println(price);
 	}
-	public static int CheckSeat(int row, int col, int[][] seats) {
+	public static boolean CheckSeat(int row, int col, int[][] seats) {
 		if(seats[row][col] == 0) {
-			return 0;
+			return false;
 		} else {
-			return seats[row][col];
+			return true;
 		}
 		
+	}
+	public static int PriceSeat(int row, int col, int[][] seats) {
+		int price = 0;
+		if(CheckSeat(row, col, seats)) {
+			price = seats[row][col];
+			seats[row][col] = 0;
+			return price;
+		} else {
+			return 0;
+		}
+	}
+	public static void PrintSeats(int[][] seats) {
+		for(int i = 0; i < seats.length; i++) {
+			System.out.printf("%s%d%s","Row ", (i+1),": ");
+			for(int j = 0; j < seats.length+1; j++) {
+				System.out.printf("%4d%2s",seats[i][j] + "  ");
+			}
+	
+			System.out.println();
+		}
 	}
 
 }

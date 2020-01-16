@@ -1,11 +1,13 @@
+package Chapter7dot6;
 import java.util.Scanner;
 public class TicketPrices {
-
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		int tickets = 0;
+		int totalTickets = 0;
 		int row = 0;
 		int col = 0;
+		boolean flag2 = true;
 		int[][] seats = new int[9][10];
 		for(int i = 0; i < seats.length; i++) {
 			for(int j = 0; j < seats.length+1; j++) {
@@ -48,32 +50,40 @@ public class TicketPrices {
 				}
 			}
 		}
-		PrintSeats(seats);
-		System.out.println();
-		System.out.print("How many tickets you buyin': ");
-		tickets = input.nextInt();
 		int price = 0;
-		for(int i = 0; i < tickets; i++) {
-			int numb = 0;
-			boolean flag = false;
-			while(!flag) {
-				System.out.println("Enter the row and column for your seat choice: ");
-				System.out.print("Row: ");
-				row = input.nextInt();
-				System.out.print("Col: ");
-				col = input.nextInt();
-				if(!CheckSeat(row,col,seats)) {
-					System.out.println("That seat is not available");
-				} else {
-					System.out.println("Seat got");
-					price += PriceSeat(row,col,seats);
-					flag = true;
-					
+		
+		System.out.println();
+		//while(flag2) {
+		do {
+			PrintSeats(seats);
+			System.out.print("How many tickets you buyin': ");
+			tickets = input.nextInt();
+			totalTickets += tickets;
+			for(int i = 0; i < tickets; i++) {
+				boolean flag = false;
+				while(!flag) {
+					System.out.println("Enter the row and column for your seat choice: ");
+					System.out.print("Row: ");
+					row = input.nextInt()-1;
+					System.out.print("Col: ");
+					col = input.nextInt();
+					if(!CheckSeat(row,col,seats)) {
+						System.out.println("That seat is not available");
+					} else {
+						System.out.println("Seat got");
+						price += PriceSeat(row,col,seats);
+						System.out.println("Total so far: $" + price);
+						flag = true;
+					}
 				}
 			}
-		}
+		} while(PromptForMoreTickets(input));
+			//if(str.equals("n")) {
+				//flag2 = false;
+			//}
+		//}
 		PrintSeats(seats);
-		System.out.println("Number Tickets Sold: " + tickets);
+		System.out.println("Number Tickets Sold: " + totalTickets);
 		System.out.print("Amount Due: $");
 		System.out.println(price);
 	}
@@ -83,7 +93,6 @@ public class TicketPrices {
 		} else {
 			return true;
 		}
-		
 	}
 	public static int PriceSeat(int row, int col, int[][] seats) {
 		int price = 0;
@@ -99,11 +108,25 @@ public class TicketPrices {
 		for(int i = 0; i < seats.length; i++) {
 			System.out.printf("%s%d%s","Row ", (i+1),": ");
 			for(int j = 0; j < seats.length+1; j++) {
-				System.out.printf("%4d%2s",seats[i][j] + "  ");
+				System.out.printf("%4d%2s",seats[i][j], "  ");
 			}
-	
 			System.out.println();
 		}
+	}
+	public static boolean PromptForMoreTickets(Scanner inScanner) {
+		do {
+			System.out.println("Would you like more Tickets? (\"Y\" or \"N\")");
+			String answer = inScanner.next();
+			if(answer.equals("Y") || answer.equals("y")) {
+				return true;
+			} else if (answer.equals("N") || answer.equals("n")) {
+				return false;
+			} else {
+				System.out.println("Please enter \"Y\" or \"N\"");
+			}
+			
+		}
+		while(true);
 	}
 
 }

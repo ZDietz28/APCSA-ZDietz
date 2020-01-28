@@ -23,7 +23,7 @@ public class GuessWithFileInput {
 
 	public static void main(String[] args) throws Exception {
 		// COMPLETE THE HELPER METHODS BELOW then fill in the main method
-		File file = new File("C:\\Users\\871265\\Desktop\\Fruits.txt");
+		File file = new File("C:\\Users\\871265\\eclipse-workspace\\APCSA-ZDietz\\Quarter 3\\src\\Chapter7dot6\\Fruits.txt");
 		Scanner inFile = new Scanner(file);
 		Scanner input = new Scanner(System.in);
 		ArrayList<String> words = new ArrayList<String>();

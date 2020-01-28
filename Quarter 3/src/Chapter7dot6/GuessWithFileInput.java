@@ -26,6 +26,24 @@ public class GuessWithFileInput {
 		File file = new File("C:\\Users\\871265\\Desktop\\Fruits.txt");
 		Scanner inFile = new Scanner(file);
 		Scanner input = new Scanner(System.in);
+		ArrayList<String> words = new ArrayList<String>();
+		while(inFile.hasNextLine()) {
+			words.add(inFile.nextLine());
+			//get the last word
+			String temp = words.get(words.size()-1);
+			//substring index 1 to length-2
+			temp = temp.substring(1, temp.length()-2);
+			//set the last word to new substring
+			words.set(words.size()-1, temp);
+		}
+		//System.out.print(words);
+		String[][] fruits = makeTwoDimList(words);
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < fruits.length; j++) {
+				System.out.print(fruits[j][i] + " ");
+			}
+			System.out.println();
+		}
 		// Use the getList method to use the inFile Scanner and create an ArrayList of all words
 		// Use the makeTwoDimList method to take the ArrayList of all words and sort it into a 2D array String[][]
 		// For example, the sorted 2D array might look like...
@@ -113,38 +131,38 @@ public class GuessWithFileInput {
 	// Given two strings as input, compares if the first string (guess) equals the second
 	// string (solution).  If the two strings are not exactly the same,
 	// return false.  Otherwise return true.
-	public static boolean checkWord(String guess, String solution) {
+	//public static boolean checkWord(String guess, String solution) {
 		// Fill in the body
-	}
+	//}
 
 
 	// Given a String[] of strings as input, randomly selects one of the strings
 	// in the list and returns it to the calling program.
-	public static String getRandomWord(String[] inList) {
+	//public static String getRandomWord(String[] inList) {
 		// Fill in the body
-	}
+	//}
 
 
 	// Given a Scanner as input, prompt the user to enter a character.  If the character
 	// enters anything other than a single character provide an error message and ask
 	// the user to input a single character.  Otherwise return the single character to
 	// the calling program.
-	public static char getCharacterGuess(Scanner inScanner) {
+	//public static char getCharacterGuess(Scanner inScanner) {
 		// Fill in the body
-	}
+	//}
 
 	// Given a String, return a String that is the exact same length but consists of
 	// nothing but '*' characters.  For example, given the String DOG as input, return
 	// the string ***
-	public static String starWord(String inWord) {
+	//public static String starWord(String inWord) {
 		// Fill in the body
-	}
+	//}
 
 	// Given a character and a String, return the count of the number of times the
 	// character occurs in that String.
-	public static int checkChar(char guessChar, String guessWord) {
+	//public static int checkChar(char guessChar, String guessWord) {
 		// Fill in the body
-	}
+	//}
 
 	// Given a character, a String containing a word, and a String containing a 'starred'
 	// version of that word, return a new String that is a modified version of the 'starred'
@@ -152,7 +170,7 @@ public class GuessWithFileInput {
 	// For example, given the following call:
 	//   modfiyGuess('G',"GEOLOGY", "**O*O*Y")
 	// This functions should return the String "G*O*OGY".
-	public static String modifyGuess(char inChar, String word, String starredWord) {
+	//public static String modifyGuess(char inChar, String word, String starredWord) {
 		// Fill in the body
-	}
+	//}
 }

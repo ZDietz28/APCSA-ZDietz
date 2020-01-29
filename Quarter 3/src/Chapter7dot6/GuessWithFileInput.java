@@ -36,11 +36,11 @@ public class GuessWithFileInput {
 			//set the last word to new substring
 			words.set(words.size()-1, temp);
 		}
-		//System.out.print(words);
+		
 		String[][] fruits = makeTwoDimList(words);
 		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < fruits.length; j++) {
-				System.out.print(fruits[j][i] + " ");
+			for(String word:fruits[i]) {
+				System.out.print(word + ", ");
 			}
 			System.out.println();
 		}
@@ -70,27 +70,10 @@ public class GuessWithFileInput {
 		ArrayList<String> list = new ArrayList<String>();
 		return list;
 	}
-
-	// Sort ArrayList into a 2D Array. Takes the ArrayList<String> as parameter. Returns a
-	// 2D Array with 3-5 character words in row 0, 6-8 character words in row 1, 9+ character
-	// words in row 2, and ignores all words with less than 3 characters.
 	public static String[][] makeTwoDimList(ArrayList<String> allWords){
-		// Count the number of level #0 3-6 char words in allWords
-		// Count the number of level #1 7-10 char words in allWords
-		// Count the number of level #2 11+ char words in allWords
-		
-		// Declare your 2D array (not an arraylist)
-
-		// Fill in the body
-
-		//return twoDimList;
-		
-		//int levelZero = 0;
 		ArrayList<String> levelZero = new ArrayList<String>();
 		ArrayList<String> levelOne = new ArrayList<String>();
 		ArrayList<String> levelTwo = new ArrayList<String>();
-		//int levelOne = 0;
-		//int levelTwo = 0;
 		for(int i = 0; i < allWords.size(); i++) {
 			String word = allWords.get(i);
 			if(word.length() < 7) {
@@ -101,29 +84,21 @@ public class GuessWithFileInput {
 				levelTwo.add(word);
 			}
 		}
-		String[][] twoDimList = new String[Math.max(levelZero.size(), (Math.max(levelOne.size(), levelTwo.size())))][3];
-		for(int i = 0; i < 3; i ++) {
-			for(int j = 0; j < twoDimList.length; j++) {
-				if(i == 0) {
-					if(levelZero.get(i) == null) {
-						twoDimList[j][i] = "";
-					}else {
-						twoDimList[j][i] = levelZero.get(i);
-					}
-				}else if(i == 1) {
-					if(levelOne.get(i) == null) {
-						twoDimList[j][i] = "";
-					}else {
-						twoDimList[j][i] = levelOne.get(i);
-					}
-				}else{
-					if(levelTwo.get(i) == null) {
-						twoDimList[j][i] = "";
-					}else {
-						twoDimList[j][i] = levelTwo.get(i);
-					}
-				}
-			}
+		
+		String[][] twoDimList = new String[3][];
+		twoDimList[0] = new String[levelZero.size()];
+		twoDimList[1] = new String[levelOne.size()];
+		twoDimList[2] = new String[levelTwo.size()];
+
+		for(int col = 0; col < twoDimList[0].length; col ++) {
+			twoDimList[0][col] = levelZero.get(col);
+		}
+
+		for(int col = 0; col < twoDimList[1].length; col ++) {
+			twoDimList[1][col] = levelOne.get(col);
+		}
+		for(int col = 0; col < twoDimList[2].length; col ++) {
+			twoDimList[2][col] = levelTwo.get(col);
 		}
 		return twoDimList;
 	}
@@ -131,38 +106,38 @@ public class GuessWithFileInput {
 	// Given two strings as input, compares if the first string (guess) equals the second
 	// string (solution).  If the two strings are not exactly the same,
 	// return false.  Otherwise return true.
-	//public static boolean checkWord(String guess, String solution) {
+	public static boolean checkWord(String guess, String solution) {
 		// Fill in the body
-	//}
+	}
 
 
 	// Given a String[] of strings as input, randomly selects one of the strings
 	// in the list and returns it to the calling program.
-	//public static String getRandomWord(String[] inList) {
+	public static String getRandomWord(String[] inList) {
 		// Fill in the body
-	//}
+	}
 
 
 	// Given a Scanner as input, prompt the user to enter a character.  If the character
 	// enters anything other than a single character provide an error message and ask
 	// the user to input a single character.  Otherwise return the single character to
 	// the calling program.
-	//public static char getCharacterGuess(Scanner inScanner) {
+	public static char getCharacterGuess(Scanner inScanner) {
 		// Fill in the body
-	//}
+	}
 
 	// Given a String, return a String that is the exact same length but consists of
 	// nothing but '*' characters.  For example, given the String DOG as input, return
 	// the string ***
-	//public static String starWord(String inWord) {
+	public static String starWord(String inWord) {
 		// Fill in the body
-	//}
+	}
 
 	// Given a character and a String, return the count of the number of times the
 	// character occurs in that String.
-	//public static int checkChar(char guessChar, String guessWord) {
+	public static int checkChar(char guessChar, String guessWord) {
 		// Fill in the body
-	//}
+	}
 
 	// Given a character, a String containing a word, and a String containing a 'starred'
 	// version of that word, return a new String that is a modified version of the 'starred'
@@ -170,7 +145,7 @@ public class GuessWithFileInput {
 	// For example, given the following call:
 	//   modfiyGuess('G',"GEOLOGY", "**O*O*Y")
 	// This functions should return the String "G*O*OGY".
-	//public static String modifyGuess(char inChar, String word, String starredWord) {
+	public static String modifyGuess(char inChar, String word, String starredWord) {
 		// Fill in the body
-	//}
+	}
 }

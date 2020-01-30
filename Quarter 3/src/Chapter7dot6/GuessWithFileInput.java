@@ -22,11 +22,14 @@ public class GuessWithFileInput {
 
 
 	public static void main(String[] args) throws Exception {
-		// COMPLETE THE HELPER METHODS BELOW then fill in the main method
+		
 		File file = new File("C:\\Users\\871265\\eclipse-workspace\\APCSA-ZDietz\\Quarter 3\\src\\Chapter7dot6\\Fruits.txt");
 		Scanner inFile = new Scanner(file);
 		Scanner input = new Scanner(System.in);
 		ArrayList<String> words = new ArrayList<String>();
+		/*Importing file to Array List
+		 * 
+		 */
 		while(inFile.hasNextLine()) {
 			words.add(inFile.nextLine());
 			//get the last word
@@ -36,7 +39,7 @@ public class GuessWithFileInput {
 			//set the last word to new substring
 			words.set(words.size()-1, temp);
 		}
-		
+		//Making array from array list
 		String[][] fruits = makeTwoDimList(words);
 		for(int i = 0; i < 3; i++) {
 			for(String word:fruits[i]) {
@@ -44,6 +47,15 @@ public class GuessWithFileInput {
 			}
 			System.out.println();
 		}
+		
+		//SCRIPT
+		String word = getRandomWord(fruits);
+		String staredWord = starWord(word);
+		System.out.print(word + "\n" + staredWord);
+		
+		
+		
+		//System.out.println(getRandomWord(fruits));
 		// Use the getList method to use the inFile Scanner and create an ArrayList of all words
 		// Use the makeTwoDimList method to take the ArrayList of all words and sort it into a 2D array String[][]
 		// For example, the sorted 2D array might look like...
@@ -107,14 +119,21 @@ public class GuessWithFileInput {
 	// string (solution).  If the two strings are not exactly the same,
 	// return false.  Otherwise return true.
 	public static boolean checkWord(String guess, String solution) {
-		// Fill in the body
+		if(guess.equals(solution)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 
 	// Given a String[] of strings as input, randomly selects one of the strings
 	// in the list and returns it to the calling program.
-	public static String getRandomWord(String[] inList) {
-		// Fill in the body
+	public static String getRandomWord(String[][] inList) {
+		Random generator = new Random();
+		int rows = generator.nextInt(3);
+		int cols = generator.nextInt(inList[rows].length);
+		return inList[rows][cols];
 	}
 
 
@@ -123,20 +142,33 @@ public class GuessWithFileInput {
 	// the user to input a single character.  Otherwise return the single character to
 	// the calling program.
 	public static char getCharacterGuess(Scanner inScanner) {
-		// Fill in the body
+		boolean flag = true;
+		String guess;
+		do {
+			System.out.print("Please enter a character: ");
+			guess = inScanner.next();
+			if(guess)
+			
+		}while(flag);
+		return guess;
 	}
 
 	// Given a String, return a String that is the exact same length but consists of
 	// nothing but '*' characters.  For example, given the String DOG as input, return
 	// the string ***
 	public static String starWord(String inWord) {
-		// Fill in the body
+		String word = "";
+		for(int i = 0; i < inWord.length(); i ++) {
+			word += "*";
+		}
+		return word;
 	}
 
 	// Given a character and a String, return the count of the number of times the
 	// character occurs in that String.
 	public static int checkChar(char guessChar, String guessWord) {
 		// Fill in the body
+		return 0;
 	}
 
 	// Given a character, a String containing a word, and a String containing a 'starred'
@@ -147,5 +179,6 @@ public class GuessWithFileInput {
 	// This functions should return the String "G*O*OGY".
 	public static String modifyGuess(char inChar, String word, String starredWord) {
 		// Fill in the body
+		return "";
 	}
 }

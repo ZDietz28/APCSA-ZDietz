@@ -52,7 +52,8 @@ public class GuessWithFileInput {
 		String word = getRandomWord(fruits);
 		String staredWord = starWord(word);
 		System.out.print(word + "\n" + staredWord);
-		
+		System.out.println();
+		char guess = getCharacterGuess(input);
 		
 		
 		//System.out.println(getRandomWord(fruits));
@@ -144,13 +145,22 @@ public class GuessWithFileInput {
 	public static char getCharacterGuess(Scanner inScanner) {
 		boolean flag = true;
 		String guess;
+		String ints = "1 2 3 4 5 6 7 8 9 0";
+		
 		do {
 			System.out.print("Please enter a character: ");
 			guess = inScanner.next();
-			if(guess)
 			
+			if(guess.length() < 2 && (!ints.contains(guess))) {
+				flag = false;
+			}else if(ints.contains(guess)) {
+				System.out.println("NOT INTS BRO");
+			}
+			else {
+				System.out.println("Only one character please");
+			}
 		}while(flag);
-		return guess;
+		return guess.charAt(0);
 	}
 
 	// Given a String, return a String that is the exact same length but consists of

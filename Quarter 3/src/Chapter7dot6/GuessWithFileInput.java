@@ -53,9 +53,13 @@ public class GuessWithFileInput {
 		String staredWord = starWord(word);
 		System.out.print(word + "\n" + staredWord);
 		System.out.println();
-		char guess = getCharacterGuess(input);
-		
-		
+		boolean flag = true;
+		while(flag) {
+			char guess = getCharacterGuess(input);
+			System.out.println("That char is in the word " + checkChar(guess,word) + " times");
+			staredWord = modifyGuess(guess,word,staredWord);
+			System.out.println(staredWord);
+		}
 		//System.out.println(getRandomWord(fruits));
 		// Use the getList method to use the inFile Scanner and create an ArrayList of all words
 		// Use the makeTwoDimList method to take the ArrayList of all words and sort it into a 2D array String[][]
@@ -169,7 +173,11 @@ public class GuessWithFileInput {
 	public static String starWord(String inWord) {
 		String word = "";
 		for(int i = 0; i < inWord.length(); i ++) {
-			word += "*";
+			if(inWord.charAt(i) == ' ') {
+				word += " ";
+			}else {
+				word += "*";
+			}
 		}
 		return word;
 	}
@@ -177,8 +185,13 @@ public class GuessWithFileInput {
 	// Given a character and a String, return the count of the number of times the
 	// character occurs in that String.
 	public static int checkChar(char guessChar, String guessWord) {
-		// Fill in the body
-		return 0;
+		int sum = 0;
+		for(int i = 0; i < guessWord.length(); i++) {
+			if(guessWord.charAt(i) == guessChar) {
+				sum++;
+			}
+		}
+		return sum;
 	}
 
 	// Given a character, a String containing a word, and a String containing a 'starred'
@@ -188,7 +201,13 @@ public class GuessWithFileInput {
 	//   modfiyGuess('G',"GEOLOGY", "**O*O*Y")
 	// This functions should return the String "G*O*OGY".
 	public static String modifyGuess(char inChar, String word, String starredWord) {
-		// Fill in the body
-		return "";
+		String starWord = starredWord;
+		for(int i = 0; i < word.length(); i++) {
+			if(word.charAt(i) == inChar) {
+				starWord = starWord.substring(0,i) + word.substring(i,i+1) + starWord.substring(i+1,starWord.length()-1);
+			}
+		}
+		//System.out.println(starWord);
+		return starWord;
 	}
 }

@@ -55,7 +55,7 @@ public class GuessWithFileInput {
 		System.out.println();
 		boolean flag = true;
 		while(flag) {
-			char guess = getCharacterGuess(input);
+			char guess = getCharacterGuess(input, word);
 			System.out.println("That char is in the word " + checkChar(guess,word) + " times");
 			staredWord = modifyGuess(guess,word,staredWord);
 			System.out.println(staredWord);
@@ -146,17 +146,24 @@ public class GuessWithFileInput {
 	// enters anything other than a single character provide an error message and ask
 	// the user to input a single character.  Otherwise return the single character to
 	// the calling program.
-	public static char getCharacterGuess(Scanner inScanner) {
+	public static char getCharacterGuess(Scanner inScanner, String word) {
 		boolean flag = true;
 		String guess;
-		String ints = "1 2 3 4 5 6 7 8 9 0";
+		String ints = "1 2 3 4 5 6 7 8 9";
 		
 		do {
-			System.out.print("Please enter a character: ");
+			System.out.print("Please enter a character or enter 0 for a word guess: ");
 			guess = inScanner.next();
 			
-			if(guess.length() < 2 && (!ints.contains(guess))) {
+			if(guess.length() < 2 && (!ints.contains(guess)) && !guess.equals("0")) {
 				flag = false;
+			}else if(guess.equals("0")) {
+				if(wordGuess(inScanner,word)) {
+					System.out.println("YOU GOT IT!");
+					System.exit(0);
+				} else {
+					System.out.println("NO BUENO");
+				}
 			}else if(ints.contains(guess)) {
 				System.out.println("NOT INTS BRO");
 			}
@@ -202,12 +209,24 @@ public class GuessWithFileInput {
 	// This functions should return the String "G*O*OGY".
 	public static String modifyGuess(char inChar, String word, String starredWord) {
 		String starWord = starredWord;
+		
 		for(int i = 0; i < word.length(); i++) {
 			if(word.charAt(i) == inChar) {
-				starWord = starWord.substring(0,i) + word.substring(i,i+1) + starWord.substring(i+1,starWord.length()-1);
+				starWord = starWord.substring(0,i) + word.charAt(i) + starWord.substring(i+1,starWord.length());
+				//System.out.println(starWord.substring(i,starWord.length()-1));
 			}
 		}
 		//System.out.println(starWord);
 		return starWord;
+	}
+	
+	public static boolean wordGuess(Scanner inScanner, String word) {
+		System.out.print("Please enter a word guess: ");
+		String guess = inScanner.next();
+		if(guess.equals(word)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

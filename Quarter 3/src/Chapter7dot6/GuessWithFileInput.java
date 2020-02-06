@@ -41,25 +41,60 @@ public class GuessWithFileInput {
 		}
 		//Making array from array list
 		String[][] fruits = makeTwoDimList(words);
-		for(int i = 0; i < 3; i++) {
-			for(String word:fruits[i]) {
-				System.out.print(word + ", ");
-			}
-			System.out.println();
-		}
+		//for(int i = 0; i < 3; i++) {
+			//for(String word:fruits[i]) {
+				//System.out.print(word + ", ");
+			//}
+			//System.out.println();
+		//}
 		
 		//SCRIPT
-		String word = getRandomWord(fruits);
-		String staredWord = starWord(word);
-		System.out.print(word + "\n" + staredWord);
-		System.out.println();
-		boolean flag = true;
-		while(flag) {
-			char guess = getCharacterGuess(input, word);
-			System.out.println("That char is in the word " + checkChar(guess,word) + " times");
-			staredWord = modifyGuess(guess,word,staredWord);
+		int score = 100;
+		for(int i = 0; i < 3; i+=0) {
+			String word = getRandomWord(fruits, i);
+			//String word = "ugli fruit";
+			String staredWord = starWord(word);
+			System.out.println();
+			System.out.println("Level " + (i+1) + ": ");
+			//System.out.print(word + "\n" + staredWord);
 			System.out.println(staredWord);
+			System.out.println();
+			
+			boolean flag = true;
+			
+			while(flag) {
+				if(score <= 0) {
+					System.out.println("You lost!");
+					System.exit(0);
+				}
+				char guess = getCharacterGuess(input, word);
+				if(guess == '0') {
+					if(wordGuess(input,word)) {
+						System.out.println("YOU GOT IT!");
+						i++;
+						break;
+					} else {
+						System.out.println("NO BUENO");
+						score -= 10;
+						System.out.println("Score = " + score);
+					}
+				}else {
+					if(checkChar(guess,word) > 0) {
+						System.out.println("That char is in the word " + checkChar(guess,word) + " times");
+						score --;
+						System.out.println("Score = " + score);
+						staredWord = modifyGuess(guess,word,staredWord);
+						System.out.println(staredWord);
+					} else {
+						System.out.println("That char is not in the word");
+						score -= 2;
+						System.out.println("Score = " + score);
+						System.out.println(staredWord);
+					}
+				}
+			}
 		}
+		System.out.println("Your final score = " + score);
 		//System.out.println(getRandomWord(fruits));
 		// Use the getList method to use the inFile Scanner and create an ArrayList of all words
 		// Use the makeTwoDimList method to take the ArrayList of all words and sort it into a 2D array String[][]
@@ -134,11 +169,10 @@ public class GuessWithFileInput {
 
 	// Given a String[] of strings as input, randomly selects one of the strings
 	// in the list and returns it to the calling program.
-	public static String getRandomWord(String[][] inList) {
+	public static String getRandomWord(String[][] inList, int level) {
 		Random generator = new Random();
-		int rows = generator.nextInt(3);
-		int cols = generator.nextInt(inList[rows].length);
-		return inList[rows][cols];
+		int cols = generator.nextInt(inList[level].length);
+		return inList[level][cols];
 	}
 
 
@@ -153,17 +187,12 @@ public class GuessWithFileInput {
 		
 		do {
 			System.out.print("Please enter a character or enter 0 for a word guess: ");
-			guess = inScanner.next();
+			guess = inScanner.nextLine();
 			
 			if(guess.length() < 2 && (!ints.contains(guess)) && !guess.equals("0")) {
 				flag = false;
 			}else if(guess.equals("0")) {
-				if(wordGuess(inScanner,word)) {
-					System.out.println("YOU GOT IT!");
-					System.exit(0);
-				} else {
-					System.out.println("NO BUENO");
-				}
+				flag = false;
 			}else if(ints.contains(guess)) {
 				System.out.println("NOT INTS BRO");
 			}
@@ -222,7 +251,7 @@ public class GuessWithFileInput {
 	
 	public static boolean wordGuess(Scanner inScanner, String word) {
 		System.out.print("Please enter a word guess: ");
-		String guess = inScanner.next();
+		String guess = inScanner.nextLine();
 		if(guess.equals(word)) {
 			return true;
 		}else {

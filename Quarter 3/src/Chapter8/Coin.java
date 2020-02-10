@@ -57,8 +57,6 @@ public class Coin {
 			} else if(type.equals("penny")) {
 				return .01;
 			}
-		} else {
-			return .00;
 		}
 		return .00;
 	}

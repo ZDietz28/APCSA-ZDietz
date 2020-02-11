@@ -34,6 +34,8 @@ public class Store
 	public Store(String _type)
 	{
 		type = _type;
+		openTime = 10;
+		closeTime = 21;
 
 	}
 	// Second constructor: 3 parameters: store type, opening time and closing time
@@ -88,11 +90,12 @@ public class Store
 	// Otherwise, no times are changed and return false
 	public boolean setHours(int newOpen, int newClose)
 	{
-
-
-
-
-
+		if(newOpen >= 0 && newOpen <= 23 && newClose > newOpen && newClose <= 23 ) {
+			openTime = newOpen;
+			closeTime = newClose;
+			return true;
+		}
+		return false;
 	}
 
 	// Converts timeToConvert from 24 hour time to 12 hour time.
@@ -103,9 +106,10 @@ public class Store
 	// If you want to call this method from within the Store class, you can call it like normal.  For example: convertTime(14)
 	public static String convertTime(int timeToConvert)
 	{
-
-
-
+		if(timeToConvert >= 12) {
+			return (timeToConvert % 12) + "pm";
+		}
+		return timeToConvert + "am";
 	}
 
 	// toString - returns <store type> store is open from <open time> to <close time>
@@ -116,7 +120,7 @@ public class Store
 
 	public String toString()
 	{
-
+		return type + " store is open from " + Store.convertTime(openTime) + " to " + Store.convertTime(closeTime);
 	}
 
 

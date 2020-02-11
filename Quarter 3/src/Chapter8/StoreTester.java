@@ -1,4 +1,5 @@
 package Chapter8;
+
 public class StoreTester
 {
 	public static void main(String[] args)

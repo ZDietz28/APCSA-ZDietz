@@ -74,8 +74,7 @@ public class Store
 
 	// If newType is Grocery or Pet (not case sensitive), set the type and return true;
 	// Otherwise, the type remains unchanged and false is returned.
-	public boolean setType(String newType)
-	{
+	public boolean setType(String newType){	
 		String _newType = newType.toLowerCase();
 		if(_newType.equals("grocery") || _newType.equals("pet")) {
 			type = _newType;
@@ -84,26 +83,17 @@ public class Store
 		return false;
 
 	}
-
-	// if newOpen and newClose are both in the range [0,23] and the opening time is before the closing time,
-	// set the open and close times to the new times and return true.
-	// Otherwise, no times are changed and return false
-	public boolean setHours(int newOpen, int newClose)
-	{
+	public boolean setHours(int newOpen, int newClose){
 		if(newOpen >= 0 && newOpen <= 23 && newClose > newOpen && newClose <= 23 ) {
 			openTime = newOpen;
 			closeTime = newClose;
 			return true;
 		}
 		return false;
+		
 	}
 
-	// Converts timeToConvert from 24 hour time to 12 hour time.
-	// For example, convertTime(5) will return the value 5am
-	// convertTime(14) will return the value 2pm.
-	// Note: This method is static.   That means that if you are testing this method from another program, your method
-	// call will be similar to:   Store.convertTime(15);
-	// If you want to call this method from within the Store class, you can call it like normal.  For example: convertTime(14)
+	
 	public static String convertTime(int timeToConvert)
 	{
 		if(timeToConvert >= 12) {
@@ -112,12 +102,7 @@ public class Store
 		return timeToConvert + "am";
 	}
 
-	// toString - returns <store type> store is open from <open time> to <close time>
-	// For example: grocery store is open from 10am to 11pm
-	// Note: call your convertTime method to convert the time to am and pm
-	// Since the convertTime method is in the same class, it can be called by just using the name of the method and the time to convert
-	// For example: convertTime(15)  -- the 15 can be replaced by any int variable.  A string will be returned from the convertTime method
-
+	
 	public String toString()
 	{
 		return type + " store is open from " + Store.convertTime(openTime) + " to " + Store.convertTime(closeTime);
